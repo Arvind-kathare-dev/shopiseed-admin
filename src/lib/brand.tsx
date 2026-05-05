@@ -38,7 +38,7 @@ function applyBrand(id: BrandId) {
 }
 
 export function BrandProvider({ children }: { children: ReactNode }) {
-  const [brand, setBrandState] = useState<BrandId>("emerald");
+  const [brand, setBrandState] = useState<BrandId>("violet");
 
   useEffect(() => {
     const stored = (typeof window !== "undefined" && localStorage.getItem("brand")) as BrandId | null;
