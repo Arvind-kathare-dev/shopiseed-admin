@@ -1,14 +1,20 @@
 import { Bell, Menu, Moon, Search, Sun, Plus } from "lucide-react";
 import { useTheme } from "@/lib/theme";
-import { useRouterState } from "@tanstack/react-router";
+import { useRouterState, useNavigate } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { useAuth } from "@/lib/auth";
 
 export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
   const { theme, toggle } = useTheme();
   const path = useRouterState({ select: s => s.location.pathname });
   const crumbs = path === "/" ? ["Dashboard"] : path.split("/").filter(Boolean).map(s => s[0].toUpperCase() + s.slice(1));
   const [profileOpen, setProfileOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+  const email = user?.email ?? "guest@loom.shop";
+  const fullName = (user?.user_metadata?.full_name as string | undefined) ?? email.split("@")[0];
+  const initials = fullName.split(" ").map(s => s[0]).join("").slice(0, 2).toUpperCase();
 
   return (
     <header className="sticky top-0 z-30 h-16 glass border-b border-border flex items-center gap-3 px-4 lg:px-6">
