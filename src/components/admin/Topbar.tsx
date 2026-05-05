@@ -1,14 +1,20 @@
 import { Bell, Menu, Moon, Search, Sun, Plus } from "lucide-react";
 import { useTheme } from "@/lib/theme";
-import { useRouterState } from "@tanstack/react-router";
+import { useRouterState, useNavigate } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { useAuth } from "@/lib/auth";
 
 export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
   const { theme, toggle } = useTheme();
   const path = useRouterState({ select: s => s.location.pathname });
   const crumbs = path === "/" ? ["Dashboard"] : path.split("/").filter(Boolean).map(s => s[0].toUpperCase() + s.slice(1));
   const [profileOpen, setProfileOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+  const email = user?.email ?? "guest@loom.shop";
+  const fullName = (user?.user_metadata?.full_name as string | undefined) ?? email.split("@")[0];
+  const initials = fullName.split(" ").map(s => s[0]).join("").slice(0, 2).toUpperCase();
 
   return (
     <header className="sticky top-0 z-30 h-16 glass border-b border-border flex items-center gap-3 px-4 lg:px-6">
@@ -65,9 +71,9 @@ export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
           className="flex items-center gap-2 pl-1 pr-2 h-9 rounded-full hover:bg-muted"
         >
           <div className="size-7 rounded-full bg-gradient-primary grid place-items-center text-primary-foreground text-xs font-semibold">
-            AR
+            {initials}
           </div>
-          <span className="hidden sm:inline text-sm font-medium">Alex R.</span>
+          <span className="hidden sm:inline text-sm font-medium truncate max-w-[120px]">{fullName}</span>
         </button>
         <AnimatePresence>
           {profileOpen && (
@@ -81,14 +87,18 @@ export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
                 className="absolute right-0 mt-2 w-64 rounded-xl glass shadow-elegant border border-border z-50 overflow-hidden"
               >
                 <div className="p-4 border-b border-border">
-                  <div className="font-semibold text-sm">Alex Rivera</div>
-                  <div className="text-xs text-muted-foreground">alex@loom.shop</div>
+                  <div className="font-semibold text-sm truncate">{fullName}</div>
+                  <div className="text-xs text-muted-foreground truncate">{email}</div>
                   <span className="inline-block mt-2 text-[10px] uppercase tracking-wide px-2 py-0.5 rounded bg-accent text-accent-foreground">Owner</span>
                 </div>
                 <div className="p-1.5 text-sm">
-                  {["Profile", "Account settings", "Billing", "Sign out"].map(i => (
-                    <button key={i} className="w-full text-left px-3 py-2 rounded-md hover:bg-muted">{i}</button>
-                  ))}
+                  <button onClick={() => { setProfileOpen(false); navigate({ to: "/settings" }); }} className="w-full text-left px-3 py-2 rounded-md hover:bg-muted">Profile</button>
+                  <button onClick={() => { setProfileOpen(false); navigate({ to: "/settings" }); }} className="w-full text-left px-3 py-2 rounded-md hover:bg-muted">Account settings</button>
+                  <button className="w-full text-left px-3 py-2 rounded-md hover:bg-muted">Billing</button>
+                  <button
+                    onClick={async () => { await signOut(); navigate({ to: "/login" }); }}
+                    className="w-full text-left px-3 py-2 rounded-md hover:bg-muted text-destructive"
+                  >Sign out</button>
                 </div>
               </motion.div>
             </>

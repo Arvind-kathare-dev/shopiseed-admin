@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Card, PageHeader } from "@/components/admin/PageHeader";
 import { useTheme } from "@/lib/theme";
+import { useBrand, BRAND_COLORS } from "@/lib/brand";
 import { Check, Moon, Store, CreditCard, Truck, Receipt, User, Sun } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -21,7 +22,7 @@ const sections = [
 function SettingsPage() {
   const [active, setActive] = useState("store");
   const { theme, setTheme } = useTheme();
-
+  const { brand, setBrand } = useBrand();
   return (
     <div className="max-w-[1400px] mx-auto">
       <PageHeader title="Settings" subtitle="Manage your store preferences" />
@@ -96,11 +97,23 @@ function SettingsPage() {
               </div>
               <div>
                 <div className="text-sm font-medium mb-2">Brand color</div>
-                <div className="flex gap-2">
-                  {["#10b981", "#3b82f6", "#8b5cf6", "#ec4899", "#f59e0b"].map(c => (
-                    <button key={c} className="size-8 rounded-full border-2 border-border" style={{ background: c }} />
+                <div className="flex flex-wrap gap-3">
+                  {BRAND_COLORS.map(c => (
+                    <button
+                      key={c.id}
+                      onClick={() => setBrand(c.id)}
+                      title={c.label}
+                      className={cn(
+                        "relative size-10 rounded-full border-2 transition shadow-soft hover:scale-110",
+                        brand === c.id ? "border-foreground" : "border-border"
+                      )}
+                      style={{ background: c.hex }}
+                    >
+                      {brand === c.id && <Check className="absolute inset-0 m-auto size-5 text-white drop-shadow" />}
+                    </button>
                   ))}
                 </div>
+                <p className="text-xs text-muted-foreground mt-2">Updates instantly across the entire admin panel.</p>
               </div>
             </Card>
           )}
