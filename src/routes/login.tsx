@@ -48,6 +48,28 @@ function LoginPage() {
     }
   };
 
+  const DEMO_EMAIL = "demo@loom.shop";
+  const DEMO_PASSWORD = "DemoLoom!2026";
+
+  const useDemo = async () => {
+    setEmail(DEMO_EMAIL);
+    setPassword(DEMO_PASSWORD);
+    setBusy(true);
+    let res = await signIn(DEMO_EMAIL, DEMO_PASSWORD);
+    if (res.error) {
+      const up = await signUp(DEMO_EMAIL, DEMO_PASSWORD, "Demo Admin");
+      if (up.error && !/registered|exists/i.test(up.error)) {
+        setBusy(false);
+        toast.error(up.error);
+        return;
+      }
+      res = await signIn(DEMO_EMAIL, DEMO_PASSWORD);
+    }
+    setBusy(false);
+    if (res.error) toast.error(res.error);
+    else toast.success("Signed in as demo user");
+  };
+
   return (
     <div className="min-h-screen grid lg:grid-cols-2 bg-background text-foreground">
       <div className="hidden lg:flex relative overflow-hidden bg-gradient-primary p-12 flex-col justify-between">
@@ -105,6 +127,23 @@ function LoginPage() {
             {mode === "signin" ? "Sign in to your admin dashboard." : "Start managing your store in minutes."}
           </p>
 
+          <div className="mt-5 rounded-lg border border-primary/30 bg-primary/5 p-3 text-xs">
+            <div className="flex items-center justify-between gap-2">
+              <div className="font-medium text-foreground">Try the demo account</div>
+              <button
+                type="button"
+                onClick={useDemo}
+                disabled={busy}
+                className="px-2.5 py-1 rounded-md bg-gradient-primary text-primary-foreground font-medium text-[11px] shadow-glow disabled:opacity-50"
+              >
+                One-click sign in
+              </button>
+            </div>
+            <div className="mt-2 space-y-0.5 font-mono text-muted-foreground">
+              <div>email: <span className="text-foreground">{DEMO_EMAIL}</span></div>
+              <div>password: <span className="text-foreground">{DEMO_PASSWORD}</span></div>
+            </div>
+          </div>
           <button
             onClick={google}
             disabled={busy}
