@@ -71,9 +71,9 @@ export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
           className="flex items-center gap-2 pl-1 pr-2 h-9 rounded-full hover:bg-muted"
         >
           <div className="size-7 rounded-full bg-gradient-primary grid place-items-center text-primary-foreground text-xs font-semibold">
-            AR
+            {initials}
           </div>
-          <span className="hidden sm:inline text-sm font-medium">Alex R.</span>
+          <span className="hidden sm:inline text-sm font-medium truncate max-w-[120px]">{fullName}</span>
         </button>
         <AnimatePresence>
           {profileOpen && (
