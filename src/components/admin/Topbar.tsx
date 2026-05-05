@@ -3,17 +3,17 @@ import { useTheme } from "@/lib/theme";
 import { useRouterState, useNavigate } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { useAuth } from "@/lib/auth";
+import { useAuthStore } from "@/lib/store";
 
 export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
   const { theme, toggle } = useTheme();
   const path = useRouterState({ select: s => s.location.pathname });
   const crumbs = path === "/" ? ["Dashboard"] : path.split("/").filter(Boolean).map(s => s[0].toUpperCase() + s.slice(1));
   const [profileOpen, setProfileOpen] = useState(false);
-  const { user, signOut } = useAuth();
+  const { user, logout: signOut } = useAuthStore();
   const navigate = useNavigate();
-  const email = user?.email ?? "guest@loom.shop";
-  const fullName = (user?.user_metadata?.full_name as string | undefined) ?? email.split("@")[0];
+  const email = user?.email ?? "guest@storemo.app";
+  const fullName = user?.name || (user?.user_metadata?.full_name as string | undefined) || email.split("@")[0];
   const initials = fullName.split(" ").map(s => s[0]).join("").slice(0, 2).toUpperCase();
 
   return (
@@ -84,21 +84,44 @@ export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.96 }}
                 transition={{ duration: 0.15 }}
-                className="absolute right-0 mt-2 w-64 rounded-xl glass shadow-elegant border border-border z-50 overflow-hidden"
+                className="absolute right-0 mt-2 w-64 rounded-2xl bg-card/98 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-border/50 z-50 overflow-hidden"
               >
-                <div className="p-4 border-b border-border">
-                  <div className="font-semibold text-sm truncate">{fullName}</div>
-                  <div className="text-xs text-muted-foreground truncate">{email}</div>
-                  <span className="inline-block mt-2 text-[10px] uppercase tracking-wide px-2 py-0.5 rounded bg-accent text-accent-foreground">Owner</span>
+                <div className="p-4 bg-muted/30 border-b border-border/50">
+                  <div className="flex items-center gap-3">
+                    <div className="size-10 rounded-full bg-gradient-primary grid place-items-center text-primary-foreground text-sm font-bold shadow-glow">
+                      {initials}
+                    </div>
+                    <div className="min-w-0">
+                      <div className="font-semibold text-sm truncate text-foreground">{fullName}</div>
+                      <div className="text-[11px] text-muted-foreground truncate">{email}</div>
+                    </div>
+                  </div>
+                  <div className="mt-3 flex items-center gap-2">
+                    <span className="text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
+                      Owner
+                    </span>
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-success/10 text-success border border-success/20">
+                      Active
+                    </span>
+                  </div>
                 </div>
-                <div className="p-1.5 text-sm">
-                  <button onClick={() => { setProfileOpen(false); navigate({ to: "/settings" }); }} className="w-full text-left px-3 py-2 rounded-md hover:bg-muted">Profile</button>
-                  <button onClick={() => { setProfileOpen(false); navigate({ to: "/settings" }); }} className="w-full text-left px-3 py-2 rounded-md hover:bg-muted">Account settings</button>
-                  <button className="w-full text-left px-3 py-2 rounded-md hover:bg-muted">Billing</button>
+                <div className="p-2 space-y-0.5 text-sm">
+                  <button onClick={() => { setProfileOpen(false); navigate({ to: "/settings" }); }} className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-muted/80 transition-colors text-muted-foreground hover:text-foreground">
+                    Profile
+                  </button>
+                  <button onClick={() => { setProfileOpen(false); navigate({ to: "/settings" }); }} className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-muted/80 transition-colors text-muted-foreground hover:text-foreground">
+                    Account settings
+                  </button>
+                  <button className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-muted/80 transition-colors text-muted-foreground hover:text-foreground">
+                    Billing
+                  </button>
+                  <div className="h-px bg-border/50 my-1 mx-2" />
                   <button
                     onClick={async () => { await signOut(); navigate({ to: "/login" }); }}
-                    className="w-full text-left px-3 py-2 rounded-md hover:bg-muted text-destructive"
-                  >Sign out</button>
+                    className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-destructive/10 transition-colors text-destructive"
+                  >
+                    Sign out
+                  </button>
                 </div>
               </motion.div>
             </>

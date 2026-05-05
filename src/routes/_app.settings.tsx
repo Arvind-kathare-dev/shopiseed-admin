@@ -47,10 +47,12 @@ function SettingsPage() {
                 <h3 className="font-display font-semibold text-lg">Store details</h3>
                 <p className="text-sm text-muted-foreground">Public information about your store.</p>
               </div>
-              <Field label="Store name" value="Loom" />
-              <Field label="Store URL" value="loom.shop" />
-              <Field label="Support email" value="hello@loom.shop" />
-              <Field label="Currency" value="USD — US Dollar" />
+              <Field label="Store name" value="Storemo" />
+              <Field label="Store URL" value="storemo.app" />
+              <Field label="Support email" value="hello@shopifystore.com" />
+              <Field label="Phone" value="+91 99999 99999" />
+              <Field label="Location" value="Ahmedabad, Gujarat, India" />
+              <Field label="Currency" value="INR — Indian Rupee" />
               <SaveBar />
             </Card>
           )}
@@ -61,11 +63,11 @@ function SettingsPage() {
                 <p className="text-sm text-muted-foreground">Update your personal information.</p>
               </div>
               <div className="flex items-center gap-4">
-                <div className="size-16 rounded-full bg-gradient-primary grid place-items-center text-primary-foreground font-semibold text-xl">AR</div>
+                <div className="size-16 rounded-full bg-gradient-primary grid place-items-center text-primary-foreground font-semibold text-xl">AD</div>
                 <button className="px-3 h-9 rounded-lg border border-border text-sm hover:bg-muted">Upload avatar</button>
               </div>
-              <Field label="Full name" value="Alex Rivera" />
-              <Field label="Email" value="alex@loom.shop" />
+              <Field label="Full name" value="Arvind Kathare" />
+              <Field label="Email" value="hello@shopifystore.com" />
               <Field label="Password" value="••••••••" />
               <SaveBar />
             </Card>

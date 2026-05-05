@@ -26,8 +26,8 @@ function InsightsPage() {
             <Sparkles className="size-7 text-primary-foreground" />
           </div>
           <div className="flex-1">
-            <h2 className="font-display font-semibold text-xl">Your store is on track for $128k this month</h2>
-            <p className="text-sm text-muted-foreground mt-1">Projected 14% above last month based on current pace and seasonal trends.</p>
+            <h2 className="font-display font-semibold text-xl">Platform on track for ₹14.2L revenue this month</h2>
+            <p className="text-sm text-muted-foreground mt-1">Projected 22% above last month based on new client onboardings and renewal trends.</p>
           </div>
           <button className="hidden sm:flex px-4 h-10 rounded-lg bg-gradient-primary text-primary-foreground text-sm font-medium shadow-glow">
             Get full report
@@ -58,13 +58,13 @@ function InsightsPage() {
         </div>
         <ul className="space-y-3">
           {[
-            "Restock Solstice Watch (predicted sellout in 6 days)",
-            "Launch a bundle: Aurora Sneakers + Nimbus Hoodie (38% co-purchase rate)",
-            "Trigger win-back email to 142 lapsing VIP customers",
-            "Increase ad spend on Search channel — converting 2.4× better than average",
+            "Schedule proactive check-in call with Lumina Beauty — 14 days inactive before renewal",
+            "Launch bundle campaign: Growth Plan + AI Add-on offer to 380 eligible clients (est. ₹23.8L)",
+            "A/B test push notification copy for Thread & Co — open rate dropped to 18%",
+            "Onboard 2 remaining May slots — 2 of 4 spots still open for this month",
           ].map((item, i) => (
             <li key={i} className="flex items-start gap-3 p-3 rounded-lg bg-muted/40 border border-border">
-              <div className="size-6 rounded-full bg-primary/10 text-primary text-xs font-semibold grid place-items-center flex-shrink-0">{i+1}</div>
+              <div className="size-6 rounded-full bg-primary/10 text-primary text-xs font-semibold grid place-items-center shrink-0">{i+1}</div>
               <div className="text-sm flex-1">{item}</div>
               <button className="text-xs text-muted-foreground hover:text-foreground">Dismiss</button>
             </li>

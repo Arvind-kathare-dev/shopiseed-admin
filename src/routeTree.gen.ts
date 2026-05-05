@@ -9,20 +9,39 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SignupRouteImport } from './routes/signup'
+import { Route as ResetRouteImport } from './routes/reset'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as ForgotRouteImport } from './routes/forgot'
 import { Route as AppRouteImport } from './routes/_app'
 import { Route as AppIndexRouteImport } from './routes/_app.index'
 import { Route as AppSettingsRouteImport } from './routes/_app.settings'
 import { Route as AppProductsRouteImport } from './routes/_app.products'
 import { Route as AppOrdersRouteImport } from './routes/_app.orders'
+import { Route as AppOnboardingRouteImport } from './routes/_app.onboarding'
 import { Route as AppInsightsRouteImport } from './routes/_app.insights'
 import { Route as AppCustomersRouteImport } from './routes/_app.customers'
 import { Route as AppCampaignsRouteImport } from './routes/_app.campaigns'
 import { Route as AppAnalyticsRouteImport } from './routes/_app.analytics'
 
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetRoute = ResetRouteImport.update({
+  id: '/reset',
+  path: '/reset',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForgotRoute = ForgotRouteImport.update({
+  id: '/forgot',
+  path: '/forgot',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppRoute = AppRouteImport.update({
@@ -49,6 +68,11 @@ const AppOrdersRoute = AppOrdersRouteImport.update({
   path: '/orders',
   getParentRoute: () => AppRoute,
 } as any)
+const AppOnboardingRoute = AppOnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppInsightsRoute = AppInsightsRouteImport.update({
   id: '/insights',
   path: '/insights',
@@ -72,21 +96,29 @@ const AppAnalyticsRoute = AppAnalyticsRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof AppIndexRoute
+  '/forgot': typeof ForgotRoute
   '/login': typeof LoginRoute
+  '/reset': typeof ResetRoute
+  '/signup': typeof SignupRoute
   '/analytics': typeof AppAnalyticsRoute
   '/campaigns': typeof AppCampaignsRoute
   '/customers': typeof AppCustomersRoute
   '/insights': typeof AppInsightsRoute
+  '/onboarding': typeof AppOnboardingRoute
   '/orders': typeof AppOrdersRoute
   '/products': typeof AppProductsRoute
   '/settings': typeof AppSettingsRoute
 }
 export interface FileRoutesByTo {
+  '/forgot': typeof ForgotRoute
   '/login': typeof LoginRoute
+  '/reset': typeof ResetRoute
+  '/signup': typeof SignupRoute
   '/analytics': typeof AppAnalyticsRoute
   '/campaigns': typeof AppCampaignsRoute
   '/customers': typeof AppCustomersRoute
   '/insights': typeof AppInsightsRoute
+  '/onboarding': typeof AppOnboardingRoute
   '/orders': typeof AppOrdersRoute
   '/products': typeof AppProductsRoute
   '/settings': typeof AppSettingsRoute
@@ -95,11 +127,15 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_app': typeof AppRouteWithChildren
+  '/forgot': typeof ForgotRoute
   '/login': typeof LoginRoute
+  '/reset': typeof ResetRoute
+  '/signup': typeof SignupRoute
   '/_app/analytics': typeof AppAnalyticsRoute
   '/_app/campaigns': typeof AppCampaignsRoute
   '/_app/customers': typeof AppCustomersRoute
   '/_app/insights': typeof AppInsightsRoute
+  '/_app/onboarding': typeof AppOnboardingRoute
   '/_app/orders': typeof AppOrdersRoute
   '/_app/products': typeof AppProductsRoute
   '/_app/settings': typeof AppSettingsRoute
@@ -109,21 +145,29 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/forgot'
     | '/login'
+    | '/reset'
+    | '/signup'
     | '/analytics'
     | '/campaigns'
     | '/customers'
     | '/insights'
+    | '/onboarding'
     | '/orders'
     | '/products'
     | '/settings'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/forgot'
     | '/login'
+    | '/reset'
+    | '/signup'
     | '/analytics'
     | '/campaigns'
     | '/customers'
     | '/insights'
+    | '/onboarding'
     | '/orders'
     | '/products'
     | '/settings'
@@ -131,11 +175,15 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/_app'
+    | '/forgot'
     | '/login'
+    | '/reset'
+    | '/signup'
     | '/_app/analytics'
     | '/_app/campaigns'
     | '/_app/customers'
     | '/_app/insights'
+    | '/_app/onboarding'
     | '/_app/orders'
     | '/_app/products'
     | '/_app/settings'
@@ -144,16 +192,40 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   AppRoute: typeof AppRouteWithChildren
+  ForgotRoute: typeof ForgotRoute
   LoginRoute: typeof LoginRoute
+  ResetRoute: typeof ResetRoute
+  SignupRoute: typeof SignupRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset': {
+      id: '/reset'
+      path: '/reset'
+      fullPath: '/reset'
+      preLoaderRoute: typeof ResetRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/forgot': {
+      id: '/forgot'
+      path: '/forgot'
+      fullPath: '/forgot'
+      preLoaderRoute: typeof ForgotRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_app': {
@@ -189,6 +261,13 @@ declare module '@tanstack/react-router' {
       path: '/orders'
       fullPath: '/orders'
       preLoaderRoute: typeof AppOrdersRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/onboarding': {
+      id: '/_app/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof AppOnboardingRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/insights': {
@@ -227,6 +306,7 @@ interface AppRouteChildren {
   AppCampaignsRoute: typeof AppCampaignsRoute
   AppCustomersRoute: typeof AppCustomersRoute
   AppInsightsRoute: typeof AppInsightsRoute
+  AppOnboardingRoute: typeof AppOnboardingRoute
   AppOrdersRoute: typeof AppOrdersRoute
   AppProductsRoute: typeof AppProductsRoute
   AppSettingsRoute: typeof AppSettingsRoute
@@ -238,6 +318,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppCampaignsRoute: AppCampaignsRoute,
   AppCustomersRoute: AppCustomersRoute,
   AppInsightsRoute: AppInsightsRoute,
+  AppOnboardingRoute: AppOnboardingRoute,
   AppOrdersRoute: AppOrdersRoute,
   AppProductsRoute: AppProductsRoute,
   AppSettingsRoute: AppSettingsRoute,
@@ -248,8 +329,20 @@ const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   AppRoute: AppRouteWithChildren,
+  ForgotRoute: ForgotRoute,
   LoginRoute: LoginRoute,
+  ResetRoute: ResetRoute,
+  SignupRoute: SignupRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}

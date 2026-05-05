@@ -26,7 +26,15 @@ export function Card({ children, className }: { children: React.ReactNode; class
   );
 }
 
-export function Pill({ children, tone = "default" }: { children: React.ReactNode; tone?: "default" | "success" | "warning" | "destructive" | "primary" }) {
+export function Pill({ 
+  children, 
+  tone = "default",
+  className
+}: { 
+  children: React.ReactNode; 
+  tone?: "default" | "success" | "warning" | "destructive" | "primary";
+  className?: string;
+}) {
   return (
     <span className={cn(
       "inline-flex text-xs px-2 py-0.5 rounded-md font-medium capitalize",
@@ -35,6 +43,7 @@ export function Pill({ children, tone = "default" }: { children: React.ReactNode
       tone === "warning" && "bg-warning/15 text-warning",
       tone === "destructive" && "bg-destructive/10 text-destructive",
       tone === "primary" && "bg-primary/10 text-primary",
+      className
     )}>{children}</span>
   );
 }

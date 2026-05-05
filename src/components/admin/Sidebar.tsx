@@ -2,13 +2,14 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import {
   LayoutDashboard, Package, ShoppingBag, Users, BarChart3,
-  Settings, Sparkles, Tag, ChevronLeft, Store
+  Settings, Sparkles, Tag, ChevronLeft, Store, ClipboardList
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 const nav = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard },
+  { to: "/onboarding", label: "Onboarding Leads", icon: ClipboardList },
   { to: "/products", label: "Products", icon: Package },
   { to: "/orders", label: "Orders", icon: ShoppingBag },
   { to: "/customers", label: "Customers", icon: Users },
@@ -32,7 +33,7 @@ export function Sidebar({ mobileOpen, onClose }: { mobileOpen: boolean; onClose:
         animate={{ width: collapsed ? 76 : 256 }}
         transition={{ type: "spring", stiffness: 220, damping: 26 }}
         className={cn(
-          "fixed lg:sticky top-0 left-0 z-50 h-screen flex-shrink-0",
+          "fixed lg:sticky top-0 left-0 z-50 h-screen shrink-0",
           "border-r border-sidebar-border bg-sidebar text-sidebar-foreground",
           "flex flex-col",
           mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
@@ -41,13 +42,13 @@ export function Sidebar({ mobileOpen, onClose }: { mobileOpen: boolean; onClose:
       >
         <div className="h-16 flex items-center justify-between px-4 border-b border-sidebar-border">
           <Link to="/" className="flex items-center gap-2.5 overflow-hidden">
-            <div className="size-9 rounded-xl bg-gradient-primary grid place-items-center shadow-glow flex-shrink-0">
+            <div className="size-9 rounded-xl bg-gradient-primary grid place-items-center shadow-glow shrink-0">
               <Store className="size-5 text-primary-foreground" />
             </div>
             {!collapsed && (
               <div className="leading-tight">
-                <div className="font-display font-semibold">Loom</div>
-                <div className="text-[11px] text-muted-foreground">Commerce OS</div>
+                <div className="font-display font-semibold">Storemo</div>
+                <div className="text-[11px] text-muted-foreground">Mobile App Builder</div>
               </div>
             )}
           </Link>
@@ -81,7 +82,7 @@ export function Sidebar({ mobileOpen, onClose }: { mobileOpen: boolean; onClose:
                         className="absolute left-0 top-1.5 bottom-1.5 w-1 rounded-r-full bg-primary"
                       />
                     )}
-                    <item.icon className="size-[18px] flex-shrink-0" />
+                    <item.icon className="size-[18px] shrink-0" />
                     {!collapsed && <span className="truncate">{item.label}</span>}
                   </Link>
                 </li>
@@ -95,7 +96,7 @@ export function Sidebar({ mobileOpen, onClose }: { mobileOpen: boolean; onClose:
             <div className="absolute inset-0 bg-gradient-glow pointer-events-none" />
             <Sparkles className="size-5 text-primary mb-2" />
             <div className="text-sm font-semibold">Upgrade to Pro</div>
-            <div className="text-xs text-muted-foreground mt-1">Unlock AI forecasting & advanced reports.</div>
+            <div className="text-xs text-muted-foreground mt-1">Unlock AI push campaigns & advanced CRO analytics.</div>
             <button className="mt-3 w-full text-xs font-medium px-3 py-1.5 rounded-md bg-gradient-primary text-primary-foreground shadow-glow">
               Upgrade
             </button>

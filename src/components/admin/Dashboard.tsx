@@ -23,8 +23,8 @@ export function Dashboard() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-display font-semibold tracking-tight">Good morning, Alex</h1>
-          <p className="text-muted-foreground mt-1.5">Here's what's happening with your store today.</p>
+          <h1 className="text-3xl font-display font-semibold tracking-tight">Good morning, Arvind 👋</h1>
+          <p className="text-muted-foreground mt-1.5">Here's what's happening across your Storemo platform today.</p>
         </div>
         <div className="flex items-center gap-2">
           {["7d", "30d", "90d", "12m"].map((p, i) => (
@@ -38,10 +38,10 @@ export function Dashboard() {
 
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
-        <StatCard label="Revenue" value="$112,840" delta={18.2} icon={DollarSign} accent="primary" index={0} />
-        <StatCard label="Orders" value="1,392" delta={12.4} icon={ShoppingCart} accent="chart-2" index={1} />
-        <StatCard label="Conversion" value="5.04%" delta={2.1} icon={TrendingUp} accent="chart-3" index={2} />
-        <StatCard label="New Customers" value="284" delta={-1.8} icon={Users} accent="chart-4" index={3} />
+        <StatCard label="Monthly Revenue" value="₹11.2L" delta={18.2} icon={DollarSign} accent="primary" index={0} />
+        <StatCard label="Active App Stores" value="1,392" delta={12.4} icon={ShoppingCart} accent="chart-2" index={1} />
+        <StatCard label="Avg. Conversion" value="2.7%" delta={21.4} icon={TrendingUp} accent="chart-3" index={2} />
+        <StatCard label="New Clients" value="48" delta={9.2} icon={Users} accent="chart-4" index={3} />
       </div>
 
       {/* Charts row */}
@@ -228,7 +228,7 @@ export function Dashboard() {
 
         <motion.div
           initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}
-          className="rounded-2xl border border-primary/30 bg-gradient-to-br from-card to-primary/5 shadow-soft p-6 relative overflow-hidden"
+          className="rounded-2xl border border-primary/30 bg-linear-to-br from-card to-primary/5 shadow-soft p-6 relative overflow-hidden"
         >
           <div className="absolute inset-0 bg-gradient-glow pointer-events-none" />
           <div className="relative">
