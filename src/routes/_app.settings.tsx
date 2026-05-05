@@ -23,20 +23,6 @@ function SettingsPage() {
   const [active, setActive] = useState("store");
   const { theme, setTheme } = useTheme();
   const { brand, setBrand } = useBrand();
-
-const sections = [
-  { id: "store", label: "Store", icon: Store },
-  { id: "profile", label: "Profile", icon: User },
-  { id: "payments", label: "Payments", icon: CreditCard },
-  { id: "shipping", label: "Shipping", icon: Truck },
-  { id: "tax", label: "Tax", icon: Receipt },
-  { id: "appearance", label: "Appearance", icon: Moon },
-];
-
-function SettingsPage() {
-  const [active, setActive] = useState("store");
-  const { theme, setTheme } = useTheme();
-
   return (
     <div className="max-w-[1400px] mx-auto">
       <PageHeader title="Settings" subtitle="Manage your store preferences" />
