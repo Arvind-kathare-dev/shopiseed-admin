@@ -48,6 +48,28 @@ function LoginPage() {
     }
   };
 
+  const DEMO_EMAIL = "demo@loom.shop";
+  const DEMO_PASSWORD = "DemoLoom!2026";
+
+  const useDemo = async () => {
+    setEmail(DEMO_EMAIL);
+    setPassword(DEMO_PASSWORD);
+    setBusy(true);
+    let res = await signIn(DEMO_EMAIL, DEMO_PASSWORD);
+    if (res.error) {
+      const up = await signUp(DEMO_EMAIL, DEMO_PASSWORD, "Demo Admin");
+      if (up.error && !/registered|exists/i.test(up.error)) {
+        setBusy(false);
+        toast.error(up.error);
+        return;
+      }
+      res = await signIn(DEMO_EMAIL, DEMO_PASSWORD);
+    }
+    setBusy(false);
+    if (res.error) toast.error(res.error);
+    else toast.success("Signed in as demo user");
+  };
+
   return (
     <div className="min-h-screen grid lg:grid-cols-2 bg-background text-foreground">
       <div className="hidden lg:flex relative overflow-hidden bg-gradient-primary p-12 flex-col justify-between">
