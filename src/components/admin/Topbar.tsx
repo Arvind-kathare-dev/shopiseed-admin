@@ -87,14 +87,18 @@ export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
                 className="absolute right-0 mt-2 w-64 rounded-xl glass shadow-elegant border border-border z-50 overflow-hidden"
               >
                 <div className="p-4 border-b border-border">
-                  <div className="font-semibold text-sm">Alex Rivera</div>
-                  <div className="text-xs text-muted-foreground">alex@loom.shop</div>
+                  <div className="font-semibold text-sm truncate">{fullName}</div>
+                  <div className="text-xs text-muted-foreground truncate">{email}</div>
                   <span className="inline-block mt-2 text-[10px] uppercase tracking-wide px-2 py-0.5 rounded bg-accent text-accent-foreground">Owner</span>
                 </div>
                 <div className="p-1.5 text-sm">
-                  {["Profile", "Account settings", "Billing", "Sign out"].map(i => (
-                    <button key={i} className="w-full text-left px-3 py-2 rounded-md hover:bg-muted">{i}</button>
-                  ))}
+                  <button onClick={() => { setProfileOpen(false); navigate({ to: "/settings" }); }} className="w-full text-left px-3 py-2 rounded-md hover:bg-muted">Profile</button>
+                  <button onClick={() => { setProfileOpen(false); navigate({ to: "/settings" }); }} className="w-full text-left px-3 py-2 rounded-md hover:bg-muted">Account settings</button>
+                  <button className="w-full text-left px-3 py-2 rounded-md hover:bg-muted">Billing</button>
+                  <button
+                    onClick={async () => { await signOut(); navigate({ to: "/login" }); }}
+                    className="w-full text-left px-3 py-2 rounded-md hover:bg-muted text-destructive"
+                  >Sign out</button>
                 </div>
               </motion.div>
             </>
