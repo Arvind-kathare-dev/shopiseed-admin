@@ -1,14 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { Card, PageHeader, Pill } from "@/components/admin/PageHeader";
 import { products } from "@/lib/mock-data";
 import { Plus, Search, Filter, Upload } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/_app/products")({
-  component: ProductsPage,
-});
-
-function ProductsPage() {
+export function ProductsPage() {
   return (
     <div className="max-w-[1600px] mx-auto">
       <PageHeader
@@ -57,7 +52,7 @@ function ProductsPage() {
                 <tr key={p.id} className="border-b border-border last:border-0 hover:bg-muted/30 transition">
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
-                      <div className="size-10 rounded-lg bg-gradient-to-br from-chart-2/20 to-primary/20 border border-border" />
+                      <div className="size-10 rounded-lg bg-linear-to-br from-chart-2/20 to-primary/20 border border-border" />
                       <div>
                         <div className="font-medium">{p.name}</div>
                         <div className="text-xs text-muted-foreground">3 variants</div>

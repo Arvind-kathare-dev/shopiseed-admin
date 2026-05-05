@@ -1,4 +1,4 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   LayoutDashboard, Package, ShoppingBag, Users, BarChart3,
@@ -21,7 +21,7 @@ const nav = [
 
 export function Sidebar({ mobileOpen, onClose }: { mobileOpen: boolean; onClose: () => void }) {
   const [collapsed, setCollapsed] = useState(false);
-  const path = useRouterState({ select: s => s.location.pathname });
+  const { pathname: path } = useLocation();
 
   return (
     <>

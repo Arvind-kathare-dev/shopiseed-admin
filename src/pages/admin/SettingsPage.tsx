@@ -1,14 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { Card, PageHeader } from "@/components/admin/PageHeader";
 import { useTheme } from "@/lib/theme";
 import { useBrand, BRAND_COLORS } from "@/lib/brand";
 import { Check, Moon, Store, CreditCard, Truck, Receipt, User, Sun } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-
-export const Route = createFileRoute("/_app/settings")({
-  component: SettingsPage,
-});
 
 const sections = [
   { id: "store", label: "Store", icon: Store },
@@ -19,7 +14,7 @@ const sections = [
   { id: "appearance", label: "Appearance", icon: Moon },
 ];
 
-function SettingsPage() {
+export function SettingsPage() {
   const [active, setActive] = useState("store");
   const { theme, setTheme } = useTheme();
   const { brand, setBrand } = useBrand();

@@ -1,14 +1,13 @@
 import { motion } from "framer-motion";
 import { Store } from "lucide-react";
-import { Link } from "@tanstack/react-router";
+import { Link, Outlet } from "react-router-dom";
 
 interface AuthLayoutProps {
-  children: React.ReactNode;
   backToLabel?: string;
   backToHref?: string;
 }
 
-export function AuthLayout({ children, backToLabel = "Back to website", backToHref = "/" }: AuthLayoutProps) {
+export function AuthLayout({ backToLabel = "Back to website", backToHref = "/" }: AuthLayoutProps) {
   return (
     <div className="min-h-screen flex bg-background text-foreground selection:bg-primary/20 selection:text-primary">
       {/* Left Column: Branding / Graphics */}
@@ -83,7 +82,7 @@ export function AuthLayout({ children, backToLabel = "Back to website", backToHr
             <span className="font-display font-bold text-xl">Storemo</span>
           </div>
 
-          {children}
+          <Outlet />
         </div>
       </div>
     </div>

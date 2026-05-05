@@ -1,15 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { Card, PageHeader, Pill } from "@/components/admin/PageHeader";
 import { recentOrders } from "@/lib/mock-data";
 import { Download } from "lucide-react";
 
-export const Route = createFileRoute("/_app/orders")({
-  component: OrdersPage,
-});
-
 const all = [...recentOrders, ...recentOrders.map(o => ({ ...o, id: "#1023" + Math.random().toString().slice(2,5) }))];
 
-function OrdersPage() {
+export function OrdersPage() {
   return (
     <div className="max-w-[1600px] mx-auto">
       <PageHeader

@@ -1,12 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { Card, PageHeader } from "@/components/admin/PageHeader";
 import { aiInsights } from "@/lib/mock-data";
 import { Sparkles, TrendingUp, AlertTriangle, Target } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-export const Route = createFileRoute("/_app/insights")({
-  component: InsightsPage,
-});
 
 const tones = {
   warning: { icon: AlertTriangle, color: "text-warning bg-warning/10" },
@@ -14,7 +9,7 @@ const tones = {
   destructive: { icon: AlertTriangle, color: "text-destructive bg-destructive/10" },
 } as const;
 
-function InsightsPage() {
+export function InsightsPage() {
   return (
     <div className="max-w-[1600px] mx-auto space-y-6">
       <PageHeader title="AI Insights" subtitle="Predictive intelligence powered by your store data" />

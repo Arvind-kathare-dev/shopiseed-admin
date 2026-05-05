@@ -1,15 +1,16 @@
 import { useState } from "react";
-import { useNavigate, Link, useSearch } from "@tanstack/react-router";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Loader2, ChevronLeft, CheckCircle2 } from "lucide-react";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
-import { AuthLayout } from "./AuthLayout";
 
 export function ResetPage() {
   const navigate = useNavigate();
-  // Get email and otp from search params
-  const { email, otp } = useSearch({ from: "/reset" }) as { email: string; otp: string };
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const email = searchParams.get("email") || "";
+  const otp = searchParams.get("otp") || "";
   
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -45,7 +46,7 @@ export function ResetPage() {
       setBusy(false);
       toast.success("Password reset successful. Please sign in.");
       setResetSuccess(true);
-      setTimeout(() => navigate({ to: "/login" }), 2000);
+      setTimeout(() => navigate("/login"), 2000);
     } catch (error) {
       setBusy(false);
       toast.error(error instanceof Error ? error.message : "Failed to reset password");
@@ -53,12 +54,11 @@ export function ResetPage() {
   };
 
   return (
-    <AuthLayout>
-      <motion.div
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.4 }}
-      >
+    <motion.div
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.4 }}
+    >
         {resetSuccess ? (
           <div className="text-center">
             <div className="mx-auto size-14 rounded-full bg-success/10 flex items-center justify-center mb-6">
@@ -117,7 +117,6 @@ export function ResetPage() {
             </form>
           </>
         )}
-      </motion.div>
-    </AuthLayout>
+    </motion.div>
   );
 }

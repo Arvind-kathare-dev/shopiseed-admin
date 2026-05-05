@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Loader2, ChevronLeft, CheckCircle2, ShieldCheck } from "lucide-react";
 import { api } from "@/lib/api";
 import { toast } from "sonner";
-import { AuthLayout, AuthInput } from "./AuthLayout";
+import { AuthInput } from "./AuthLayout";
 
 export function ForgotPage() {
   const navigate = useNavigate();
@@ -35,19 +35,20 @@ export function ForgotPage() {
       setBusy(false);
       toast.success("OTP verified successfully");
       // Redirect to reset page with email and otp
-      navigate({
-        to: "/reset",
-        search: { email, otp } as any
-      });
+      navigate(`/reset?email=${encodeURIComponent(email)}&otp=${encodeURIComponent(otp)}`);
     } catch (error) {
       setBusy(false);
       toast.error(error instanceof Error ? error.message : "Invalid OTP");
     }
   };
 
+  const back = () => {
+    if (step === "otp") setStep("email");
+    else navigate("/login");
+  };
+
   return (
-    <AuthLayout>
-      <AnimatePresence mode="wait">
+    <AnimatePresence mode="wait">
         <motion.div
           key={step}
           initial={{ opacity: 0, x: 20 }}
@@ -56,7 +57,7 @@ export function ForgotPage() {
           transition={{ duration: 0.4 }}
         >
           <button
-            onClick={() => step === "otp" ? setStep("email") : navigate({ to: "/login" })}
+            onClick={back}
             className="mb-6 flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group w-fit"
           >
             <ChevronLeft className="size-4 group-hover:-translate-x-1 transition-transform" />
@@ -125,7 +126,6 @@ export function ForgotPage() {
             </>
           )}
         </motion.div>
-      </AnimatePresence>
-    </AuthLayout>
+    </AnimatePresence>
   );
 }

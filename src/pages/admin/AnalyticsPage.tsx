@@ -1,11 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { Card, PageHeader } from "@/components/admin/PageHeader";
 import { revenueData } from "@/lib/mock-data";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis, CartesianGrid, Line, LineChart, PieChart, Pie, Cell, Legend } from "recharts";
-
-export const Route = createFileRoute("/_app/analytics")({
-  component: AnalyticsPage,
-});
 
 const channels = [
   { name: "Direct", value: 42 },
@@ -15,7 +10,7 @@ const channels = [
 ];
 const colors = ["var(--color-primary)", "var(--color-chart-2)", "var(--color-chart-3)", "var(--color-chart-4)"];
 
-function AnalyticsPage() {
+export function AnalyticsPage() {
   return (
     <div className="max-w-[1600px] mx-auto space-y-6">
       <PageHeader title="Analytics" subtitle="Deep performance metrics across your store" />

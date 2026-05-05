@@ -1,13 +1,13 @@
 import { Bell, Menu, Moon, Search, Sun, Plus } from "lucide-react";
 import { useTheme } from "@/lib/theme";
-import { useRouterState, useNavigate } from "@tanstack/react-router";
+import { useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { useAuthStore } from "@/lib/store";
 
 export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
   const { theme, toggle } = useTheme();
-  const path = useRouterState({ select: s => s.location.pathname });
+  const { pathname: path } = useLocation();
   const crumbs = path === "/" ? ["Dashboard"] : path.split("/").filter(Boolean).map(s => s[0].toUpperCase() + s.slice(1));
   const [profileOpen, setProfileOpen] = useState(false);
   const { user, logout: signOut } = useAuthStore();
@@ -106,10 +106,10 @@ export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
                   </div>
                 </div>
                 <div className="p-2 space-y-0.5 text-sm">
-                  <button onClick={() => { setProfileOpen(false); navigate({ to: "/settings" }); }} className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-muted/80 transition-colors text-muted-foreground hover:text-foreground">
+                  <button onClick={() => { setProfileOpen(false); navigate("/settings"); }} className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-muted/80 transition-colors text-muted-foreground hover:text-foreground">
                     Profile
                   </button>
-                  <button onClick={() => { setProfileOpen(false); navigate({ to: "/settings" }); }} className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-muted/80 transition-colors text-muted-foreground hover:text-foreground">
+                  <button onClick={() => { setProfileOpen(false); navigate("/settings"); }} className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-muted/80 transition-colors text-muted-foreground hover:text-foreground">
                     Account settings
                   </button>
                   <button className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-muted/80 transition-colors text-muted-foreground hover:text-foreground">
@@ -117,7 +117,7 @@ export function Topbar({ onMenuClick }: { onMenuClick: () => void }) {
                   </button>
                   <div className="h-px bg-border/50 my-1 mx-2" />
                   <button
-                    onClick={async () => { await signOut(); navigate({ to: "/login" }); }}
+                    onClick={async () => { await signOut(); navigate("/login"); }}
                     className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-destructive/10 transition-colors text-destructive"
                   >
                     Sign out

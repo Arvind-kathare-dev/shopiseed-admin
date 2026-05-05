@@ -1,13 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { Card, PageHeader, Pill } from "@/components/admin/PageHeader";
 import { customers } from "@/lib/mock-data";
 import { Mail, Search } from "lucide-react";
 
-export const Route = createFileRoute("/_app/customers")({
-  component: CustomersPage,
-});
-
-function CustomersPage() {
+export function CustomersPage() {
   return (
     <div className="max-w-[1600px] mx-auto">
       <PageHeader title="Customers" subtitle={`${customers.length} customers · 78% returning`} />

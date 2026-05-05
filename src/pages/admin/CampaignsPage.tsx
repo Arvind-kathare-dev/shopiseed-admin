@@ -1,10 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { Card, PageHeader, Pill } from "@/components/admin/PageHeader";
 import { Plus, Tag } from "lucide-react";
-
-export const Route = createFileRoute("/_app/campaigns")({
-  component: CampaignsPage,
-});
 
 const campaigns = [
   { name: "Summer Sale 2025", code: "SUMMER25", discount: "25% off", uses: 1240, status: "active", revenue: 48200 },
@@ -14,7 +9,7 @@ const campaigns = [
   { name: "Spring clearance", code: "SPRING", discount: "30% off", uses: 890, status: "ended", revenue: 24800 },
 ];
 
-function CampaignsPage() {
+export function CampaignsPage() {
   return (
     <div className="max-w-[1600px] mx-auto">
       <PageHeader

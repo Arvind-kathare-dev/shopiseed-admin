@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { useNavigate, Link } from "@tanstack/react-router";
+import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Loader2, ArrowRight } from "lucide-react";
 import { useAuth } from "@/lib/auth";
 import { toast } from "sonner";
-import { AuthLayout, GoogleIcon, AuthInput } from "./AuthLayout";
+import { GoogleIcon, AuthInput } from "./AuthLayout";
 
 export function SignUpPage() {
   const { user, signUp, signInWithGoogle, loading } = useAuth();
@@ -15,7 +15,7 @@ export function SignUpPage() {
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
-    if (!loading && user) navigate({ to: "/" });
+    if (!loading && user) navigate("/");
   }, [user, loading, navigate]);
 
   const submit = async (e: React.FormEvent) => {
@@ -28,7 +28,7 @@ export function SignUpPage() {
       toast.error(res.error);
     } else {
       toast.success("Account created. Redirecting to dashboard…");
-      setTimeout(() => navigate({ to: "/" }), 1500);
+      setTimeout(() => navigate("/"), 1500);
     }
   };
 
@@ -42,12 +42,11 @@ export function SignUpPage() {
   };
 
   return (
-    <AuthLayout>
-      <motion.div
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.4 }}
-      >
+    <motion.div
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.4 }}
+    >
         <h2 className="font-display text-3xl font-bold tracking-tight mb-2">Create an account</h2>
         <p className="text-muted-foreground text-sm mb-8">
           Enter your details to start managing your store.
@@ -109,7 +108,6 @@ export function SignUpPage() {
             Sign in
           </Link>
         </div>
-      </motion.div>
-    </AuthLayout>
+    </motion.div>
   );
 }
