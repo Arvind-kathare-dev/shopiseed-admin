@@ -97,6 +97,12 @@ export const api = {
     getCustomers: () => apiCall('/api/customers'),
     getCustomer: (id: string) => apiCall(`/api/customers/${id}`),
 
+    // User endpoints
+    getUsers: (token: string) => apiCall('/api/users', { token }),
+    createUser: (data: any, token: string) => apiCall('/api/users', { method: 'POST', body: data, token }),
+    updateUser: (id: string, data: any, token: string) => apiCall(`/api/users/${id}`, { method: 'PUT', body: data, token }),
+    deleteUser: (id: string, token: string) => apiCall(`/api/users/${id}`, { method: 'DELETE', token }),
+
     // Onboarding/Lead endpoints
     getOnboardingLeads: (token: string) => 
         apiCall('/api/contact', { token }),

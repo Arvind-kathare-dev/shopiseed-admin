@@ -2,7 +2,8 @@ import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   LayoutDashboard, Package, ShoppingBag, Users, BarChart3,
-  Settings, Sparkles, Tag, ChevronLeft, Store, ClipboardList
+  Settings, Sparkles, Tag, ChevronLeft, Store, ClipboardList,
+  UserCheck
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -10,9 +11,10 @@ import { cn } from "@/lib/utils";
 const nav = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard },
   { to: "/onboarding", label: "Onboarding Leads", icon: ClipboardList },
+  { to: "/users", label: "Users", icon: Users },
   { to: "/products", label: "Products", icon: Package },
   { to: "/orders", label: "Orders", icon: ShoppingBag },
-  { to: "/customers", label: "Customers", icon: Users },
+  { to: "/customers", label: "Customers", icon: UserCheck },
   { to: "/analytics", label: "Analytics", icon: BarChart3 },
   { to: "/campaigns", label: "Campaigns", icon: Tag },
   { to: "/insights", label: "AI Insights", icon: Sparkles },
