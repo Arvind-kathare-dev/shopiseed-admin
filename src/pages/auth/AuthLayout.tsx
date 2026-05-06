@@ -22,7 +22,7 @@ export function AuthLayout({ backToLabel = "Back to website", backToHref = "/" }
           <div className="size-10 rounded-xl bg-white/10 backdrop-blur-md border border-white/10 grid place-items-center shadow-[0_0_15px_rgba(142,108,239,0.3)]">
             <Store className="size-5 text-white" />
           </div>
-          <div className="font-display text-2xl font-bold tracking-tight">Storemo</div>
+          <div className="font-display text-2xl font-bold tracking-tight">Shopiseed</div>
         </div>
 
         <motion.div
@@ -33,7 +33,7 @@ export function AuthLayout({ backToLabel = "Back to website", backToHref = "/" }
         >
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/10 backdrop-blur text-sm font-medium mb-6 text-white/90">
             <span className="flex size-2 rounded-full bg-primary shadow-[0_0_8px_rgba(142,108,239,0.8)]"></span>
-            Storemo 3.0 is live
+            Shopiseed 3.0 is live
           </div>
           <h1 className="font-display text-5xl xl:text-6xl font-bold leading-[1.1] tracking-tight text-balance">
             Turn mobile traffic into revenue.
@@ -58,7 +58,7 @@ export function AuthLayout({ backToLabel = "Back to website", backToHref = "/" }
         </motion.div>
 
         <div className="relative z-10 flex items-center justify-between text-sm font-medium text-white/50">
-          <span>© 2026 Storemo. Ahmedabad, India.</span>
+          <span>© 2026 Shopiseed. Ahmedabad, India.</span>
           <div className="flex gap-4">
             <a href="#" className="hover:text-white transition-colors">Terms</a>
             <a href="#" className="hover:text-white transition-colors">Privacy</a>
@@ -79,7 +79,7 @@ export function AuthLayout({ backToLabel = "Back to website", backToHref = "/" }
             <div className="size-10 rounded-xl bg-gradient-primary grid place-items-center shadow-glow">
               <Store className="size-5 text-white" />
             </div>
-            <span className="font-display font-bold text-xl">Storemo</span>
+            <span className="font-display font-bold text-xl">Shopiseed</span>
           </div>
 
           <Outlet />

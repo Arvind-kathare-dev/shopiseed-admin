@@ -50,7 +50,7 @@ export function Sidebar({ mobileOpen, onClose }: { mobileOpen: boolean; onClose:
             </div>
             {!collapsed && (
               <div className="leading-tight">
-                <div className="font-display font-semibold">Storemo</div>
+                <div className="font-display font-semibold">Shopiseed</div>
                 <div className="text-[11px] text-muted-foreground">Mobile App Builder</div>
               </div>
             )}
@@ -73,7 +73,7 @@ export function Sidebar({ mobileOpen, onClose }: { mobileOpen: boolean; onClose:
                     to={item.to}
                     onClick={onClose}
                     className={cn(
-                      "group relative flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
+                      "group relative flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors cursor-pointer",
                       active
                         ? "bg-sidebar-accent text-sidebar-accent-foreground"
                         : "text-muted-foreground hover:text-sidebar-foreground hover:bg-sidebar-accent/60"
@@ -94,17 +94,7 @@ export function Sidebar({ mobileOpen, onClose }: { mobileOpen: boolean; onClose:
           </ul>
         </nav>
 
-        {!collapsed && (
-          <div className="m-3 p-4 rounded-xl bg-gradient-primary/10 border border-primary/20 relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-glow pointer-events-none" />
-            <Sparkles className="size-5 text-primary mb-2" />
-            <div className="text-sm font-semibold">Upgrade to Pro</div>
-            <div className="text-xs text-muted-foreground mt-1">Unlock AI push campaigns & advanced CRO analytics.</div>
-            <button className="mt-3 w-full text-xs font-medium px-3 py-1.5 rounded-md bg-gradient-primary text-primary-foreground shadow-glow">
-              Upgrade
-            </button>
-          </div>
-        )}
+
       </motion.aside>
     </>
   );

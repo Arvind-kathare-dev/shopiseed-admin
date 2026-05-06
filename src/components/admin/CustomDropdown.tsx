@@ -33,15 +33,15 @@ export function CustomDropdown({
   const selectedOption = options.find(opt => opt.value === value);
 
   return (
-    <div className={cn("space-y-1.5 w-full", className)}>
-      {label && <label className="text-sm font-medium text-foreground/80 ml-1">{label}</label>}
+    <div className={cn("space-y-3 w-full", className)}>
+      {label && <label className="block text-sm font-medium text-foreground/80 ml-1 mb-1 cursor-pointer">{label}</label>}
       
       <PopoverPrimitive.Root open={isOpen} onOpenChange={setIsOpen}>
         <PopoverPrimitive.Trigger asChild>
           <button
             type="button"
             className={cn(
-              "w-full flex items-center justify-between px-4 py-2.5 rounded-xl text-sm transition-all duration-200",
+              "w-full flex items-center justify-between px-4 py-2.5 rounded-xl text-sm transition-all duration-200 cursor-pointer",
               "bg-muted/40 border border-border/50 hover:border-primary/40",
               "focus:outline-none focus:ring-2 focus:ring-primary/10 text-left",
               isOpen && "border-primary/50 bg-background shadow-soft"
@@ -87,7 +87,7 @@ export function CustomDropdown({
                           setIsOpen(false);
                         }}
                         className={cn(
-                          "w-full flex items-center justify-between px-4 py-2 text-sm transition-colors text-left",
+                          "w-full flex items-center justify-between px-4 py-2 text-sm transition-colors text-left cursor-pointer",
                           "hover:bg-primary/10 group",
                           value === option.value ? "text-primary font-semibold bg-primary/5" : "text-foreground/80"
                         )}

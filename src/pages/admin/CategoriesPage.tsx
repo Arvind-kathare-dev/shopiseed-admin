@@ -304,7 +304,7 @@ export function CategoriesPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => { setIsAddModalOpen(false); setEditingCategory(null); resetForm(); }}
-              className="absolute inset-0 bg-background/80 backdrop-blur-sm"
+              className="absolute inset-0 bg-background/80 backdrop-blur-sm cursor-pointer"
             />
             <motion.div 
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -324,8 +324,8 @@ export function CategoriesPage() {
                 </button>
               </div>
               <form onSubmit={editingCategory ? handleEditCategory : handleAddCategory} className="p-6 space-y-4">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Category Name</label>
+                <div className="space-y-3">
+                  <label className="block text-sm font-medium mb-1 cursor-pointer">Category Name</label>
                   <div className="relative">
                     <Layers className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
                     <input 
@@ -339,9 +339,9 @@ export function CategoriesPage() {
                   </div>
                 </div>
                 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Select Icon</label>
+                <div className="space-y-3">
                   <CustomDropdown 
+                    label="Select Icon"
                     options={ICON_OPTIONS}
                     value={formData.icon}
                     onChange={(val) => setFormData({ ...formData, icon: val })}
@@ -377,7 +377,7 @@ export function CategoriesPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setDeletingCategory(null)}
-              className="absolute inset-0 bg-background/80 backdrop-blur-sm"
+              className="absolute inset-0 bg-background/80 backdrop-blur-sm cursor-pointer"
             />
             <motion.div 
               initial={{ opacity: 0, scale: 0.95, y: 20 }}

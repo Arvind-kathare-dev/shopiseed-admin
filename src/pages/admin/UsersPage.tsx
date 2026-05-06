@@ -5,7 +5,11 @@ import {
   ExternalLink, User, Globe, Tag, CreditCard,
   ChevronLeft, ChevronRight, AlertCircle,
   ShoppingBag, Shirt, Cpu, Coffee, Sparkles, MoreHorizontal,
-  Zap, Star, ShieldCheck, Loader2
+  Zap, Star, ShieldCheck, Loader2,
+  Laptop, Headphones, Camera, Music, 
+  Activity, Book, Brush, Dumbbell, Mic,
+  Moon, Sun, Trophy, Tv, Users2, Layers,
+  Smartphone, Gamepad2, Heart, Home, Watch, Car, Utensils, Gift
 } from "lucide-react";
 import { Card, PageHeader, Pill } from "@/components/admin/PageHeader";
 import { CustomDropdown } from "@/components/admin/CustomDropdown";
@@ -24,14 +28,13 @@ interface UserData {
   updatedAt?: string;
 }
 
-const CATEGORY_OPTIONS = [
-  { value: "E-commerce", label: "E-commerce", icon: ShoppingBag },
-  { value: "Fashion", label: "Fashion", icon: Shirt },
-  { value: "Electronics", label: "Electronics", icon: Cpu },
-  { value: "Food & Drink", label: "Food & Drink", icon: Coffee },
-  { value: "Health & Beauty", label: "Health & Beauty", icon: Sparkles },
-  { value: "Other", label: "Other", icon: MoreHorizontal },
-];
+const ICON_MAP: Record<string, any> = {
+  ShoppingBag, Shirt, Cpu, Coffee, Sparkles, MoreHorizontal,
+  Zap, Star, ShieldCheck, Laptop, Headphones, Camera, Music, 
+  Activity, Book, Brush, Dumbbell, Globe, Mic,
+  Moon, Sun, Trophy, Tv, Users2, Layers,
+  Smartphone, Gamepad2, Heart, Home, Watch, Car, Utensils, Gift
+};
 
 const PLAN_OPTIONS = [
   { value: "Free", label: "Free", icon: User },
@@ -40,7 +43,6 @@ const PLAN_OPTIONS = [
   { value: "Enterprise", label: "Enterprise", icon: ShieldCheck },
 ];
 
-const CATEGORIES = CATEGORY_OPTIONS.map(opt => opt.value);
 const PLANS = PLAN_OPTIONS.map(opt => opt.value);
 
 
@@ -48,6 +50,7 @@ const PLANS = PLAN_OPTIONS.map(opt => opt.value);
 export function UsersPage() {
   const { token } = useAuthStore();
   const [users, setUsers] = useState<UserData[]>([]);
+  const [categories, setCategories] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("");
@@ -70,9 +73,27 @@ export function UsersPage() {
     }
   };
 
+  const fetchCategories = async () => {
+    if (!token) return;
+    try {
+      const response = await api.getCategories(token) as any;
+      const data = response.data || response || [];
+      setCategories(Array.isArray(data) ? data : []);
+    } catch (error) {
+      console.error("Failed to fetch categories:", error);
+    }
+  };
+
   useEffect(() => {
     fetchUsers();
+    fetchCategories();
   }, [token]);
+
+  const dynamicCategoryOptions = categories.map(cat => ({
+    value: cat.name,
+    label: cat.name,
+    icon: ICON_MAP[cat.icon] || Tag
+  }));
 
   // Modal states
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -83,9 +104,15 @@ export function UsersPage() {
   const [formData, setFormData] = useState({
     fullName: "",
     shopUrl: "",
-    category: CATEGORIES[0],
+    category: "",
     plan: PLANS[0]
   });
+
+  useEffect(() => {
+    if (categories.length > 0 && !formData.category) {
+      setFormData(prev => ({ ...prev, category: categories[0].name }));
+    }
+  }, [categories]);
 
   const filteredUsers = users.filter(u => {
     const matchesSearch = (u.fullName?.toLowerCase() || "").includes(search.toLowerCase()) || 
@@ -148,7 +175,7 @@ export function UsersPage() {
   };
 
   const resetForm = () => {
-    setFormData({ fullName: "", shopUrl: "", category: CATEGORIES[0], plan: PLANS[0] });
+    setFormData({ fullName: "", shopUrl: "", category: categories[0]?.name || "", plan: PLANS[0] });
   };
 
   const openEditModal = (user: UserData) => {
@@ -190,7 +217,7 @@ export function UsersPage() {
         </div>
         <div className="flex items-center gap-2 w-full md:w-auto">
           <CustomDropdown 
-            options={[{ value: "", label: "All Categories", icon: Tag }, ...CATEGORY_OPTIONS]}
+            options={[{ value: "", label: "All Categories", icon: Tag }, ...dynamicCategoryOptions]}
             value={categoryFilter}
             onChange={setCategoryFilter}
             className="flex-1 md:w-48"
@@ -355,7 +382,7 @@ export function UsersPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => { setIsAddModalOpen(false); setEditingUser(null); resetForm(); }}
-              className="absolute inset-0 bg-background/80 backdrop-blur-sm"
+              className="absolute inset-0 bg-background/80 backdrop-blur-sm cursor-pointer"
             />
             <motion.div 
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -375,8 +402,8 @@ export function UsersPage() {
                 </button>
               </div>
               <form onSubmit={editingUser ? handleEditUser : handleAddUser} className="p-6 space-y-4">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Full Name</label>
+                <div className="space-y-3">
+                  <label className="block text-sm font-medium mb-1 cursor-pointer">Full Name</label>
                   <div className="relative">
                     <User className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
                     <input 
@@ -389,8 +416,8 @@ export function UsersPage() {
                     />
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Shop URL</label>
+                <div className="space-y-3">
+                  <label className="block text-sm font-medium mb-1 cursor-pointer">Shop URL</label>
                   <div className="relative">
                     <Globe className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
                     <input 
@@ -406,7 +433,7 @@ export function UsersPage() {
                 <div className="grid grid-cols-2 gap-4">
                   <CustomDropdown 
                     label="Category"
-                    options={CATEGORY_OPTIONS}
+                    options={dynamicCategoryOptions}
                     value={formData.category}
                     onChange={(val) => setFormData({ ...formData, category: val })}
                     icon={Tag}
@@ -446,7 +473,7 @@ export function UsersPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setDeletingUser(null)}
-              className="absolute inset-0 bg-background/80 backdrop-blur-sm"
+              className="absolute inset-0 bg-background/80 backdrop-blur-sm cursor-pointer"
             />
             <motion.div 
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
