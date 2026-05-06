@@ -25,6 +25,7 @@ import { OrdersPage } from "@/pages/admin/OrdersPage";
 import { ProductsPage } from "@/pages/admin/ProductsPage";
 import { SettingsPage } from "@/pages/admin/SettingsPage";
 import { UsersPage } from "@/pages/admin/UsersPage";
+import { CategoriesPage } from "./pages/admin/CategoriesPage";
 
 // Protected Route Component
 function ProtectedRoute() {
@@ -69,6 +70,7 @@ function App() {
                 <Route path="/products" element={<ProductsPage />} />
                 <Route path="/settings" element={<SettingsPage />} />
                 <Route path="/users" element={<UsersPage />} />
+                <Route path="/categories" element={<CategoriesPage />} />
               </Route>
 
               {/* Fallback */}

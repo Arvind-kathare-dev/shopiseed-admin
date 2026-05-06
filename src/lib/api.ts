@@ -103,6 +103,12 @@ export const api = {
     updateUser: (id: string, data: any, token: string) => apiCall(`/api/users/${id}`, { method: 'PUT', body: data, token }),
     deleteUser: (id: string, token: string) => apiCall(`/api/users/${id}`, { method: 'DELETE', token }),
 
+    // Category endpoints
+    getCategories: (token: string) => apiCall('/api/categories', { token }),
+    createCategory: (data: any, token: string) => apiCall('/api/categories', { method: 'POST', body: data, token }),
+    updateCategory: (id: string, data: any, token: string) => apiCall(`/api/categories/${id}`, { method: 'PUT', body: data, token }),
+    deleteCategory: (id: string, token: string) => apiCall(`/api/categories/${id}`, { method: 'DELETE', token }),
+
     // Onboarding/Lead endpoints
     getOnboardingLeads: (token: string) => 
         apiCall('/api/contact', { token }),

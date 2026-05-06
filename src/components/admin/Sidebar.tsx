@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import {
   LayoutDashboard, Package, ShoppingBag, Users, BarChart3,
   Settings, Sparkles, Tag, ChevronLeft, Store, ClipboardList,
-  UserCheck
+  UserCheck, Megaphone, Layers
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -12,11 +12,12 @@ const nav = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard },
   { to: "/onboarding", label: "Onboarding Leads", icon: ClipboardList },
   { to: "/users", label: "Users", icon: Users },
+  { to: "/categories", label: "Categories", icon: Layers },
   { to: "/products", label: "Products", icon: Package },
   { to: "/orders", label: "Orders", icon: ShoppingBag },
   { to: "/customers", label: "Customers", icon: UserCheck },
   { to: "/analytics", label: "Analytics", icon: BarChart3 },
-  { to: "/campaigns", label: "Campaigns", icon: Tag },
+  { to: "/campaigns", label: "Campaigns", icon: Megaphone },
   { to: "/insights", label: "AI Insights", icon: Sparkles },
   { to: "/settings", label: "Settings", icon: Settings },
 ] as const;
